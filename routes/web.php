@@ -34,11 +34,14 @@ Route::controller(WoodyController::class)->group(function () {
 
 });
 Route::controller(RegisterController::class)->group(function () {
-    Route::get('/register', 'register')->name('products.register');
 
+    Route::get('/register', 'formRegister')->name('products.register');
+    Route::post('/register/store', 'registerUser')->name('users.register');
 });
 
 Route::controller(LoginController::class)->group(function () {
 
-    Route::get('/login', 'login')->name('products.login');
+    Route::get('/login', 'formLogin')->name('products.login');
+    Route::post('/login/store', 'CustomLogin')->name('Custom.login');
+    Route::get('signout','signOut')->name('signout');
 });

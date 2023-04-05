@@ -1,27 +1,22 @@
-<form method="POST" action="{{ route('products.login') }}">
+<H1> Se connecter </H1>
+<a class="button is-info" href="{{ route('products.index') }}">Page d'accueil</a>
+
+<form method="POST" action="{{ route('Custom.login') }}"><br>
     @csrf
 
-    <div>
-        <label for="email">Adresse email:</label>
-
-        <div>
-            <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-        </div>
+    <div class="form-group mb-3">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" class="form-control" id="email" placeholder="Nom d'utilisateur" name="email">
     </div>
 
-    <div>
-        <label for="password">Mot de passe:</label>
-
-        <div>
-            <input id="password" type="password" name="password" required>
-        </div>
+    <div class="form-group mb-3">
+        <label for="password">Mot de passe</label>
+        <input type="password" class="form-control" id="password" placeholder="Mot de passe" name="password">
     </div>
 
     <div>
         <div>
-            <button type="submit">
-                Se connecter
-            </button>
+            <button type="submit"> Se connecter </button>
         </div>
     </div>
 </form>

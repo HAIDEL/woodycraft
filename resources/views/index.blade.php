@@ -1,7 +1,6 @@
 <div class="card">
     <header class="card-header">
-        <a class="button is-info" href="{{ route('products.login') }}">Se Connecter</a>
-        <a class="button is-info" href="{{ route('products.register') }}">S'inscrire</a>
+
         <div class="select">
             <select onchange="window.location.href = this.value">
                 <option value="{{ route('products.index') }}" @unless($name) selected @endunless> Toutes catégories </option>
@@ -18,6 +17,18 @@
         <div class="col-lg-11">
             <h2>Jouets</h2>
         </div>
+
+
+        @guest
+
+            <a class="button is-info" href="{{ route('products.login') }}">Se Connecter</a>
+            <a class="button is-info" href="{{ route('products.register') }}">S'inscrire</a>
+        @else
+
+            <a class="button is-info" href="{{ route('signout') }}">LogOutr</a>
+
+        @endguest
+
 
 
     </div>
