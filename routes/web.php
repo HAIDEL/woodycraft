@@ -47,6 +47,10 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('signout','signOut')->name('signout');
 });
 Route::controller(CartController::class)->group(function () {
-    Route::get('/products/{id}', 'ProductController@show')->name('product.show');
-    Route::post('/cart/add', 'CartController@addToCart')->name('cart.add');
+
+    Route::post('/cart/add', 'addToCart')->name('cart.add');
+    Route::get('/cart', 'displayCart')->name('cart.display');
 });
+
+    Route::get('/products/{id}', 'ProductController@show')->name('product.show');
+    Route::get('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');

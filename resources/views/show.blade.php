@@ -22,4 +22,14 @@
 
 </table>
 
-<a href="{{ route('cart.display') }}">Aller au panier</a>
+<form method="POST" action="{{ route('cart.add') }}">
+    @csrf
+    <input type="hidden" name="product_id" value="{{ $product->id }}">
+    <label for="quantity">Quantité :</label>
+    <input type="number" id="quantity" name="quantity" value="1" min="1" max="10">
+    <button type="submit">Ajouter au panier</button>
+
+</form>
+
+
+
