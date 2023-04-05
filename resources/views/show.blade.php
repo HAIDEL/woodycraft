@@ -19,5 +19,7 @@
         <th>Quantité</th>
         <td>{{ $product->quantity }}</td>
     </tr>
-    
+
 </table>
+
+<a href="{{ route('cart.display') }}">Aller au panier</a>

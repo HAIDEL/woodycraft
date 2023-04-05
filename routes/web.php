@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WoodyController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,4 +45,8 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'formLogin')->name('products.login');
     Route::post('/login/store', 'CustomLogin')->name('Custom.login');
     Route::get('signout','signOut')->name('signout');
+});
+Route::controller(CartController::class)->group(function () {
+    Route::get('/products/{id}', 'ProductController@show')->name('product.show');
+    Route::post('/cart/add', 'CartController@addToCart')->name('cart.add');
 });
