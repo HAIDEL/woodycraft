@@ -25,7 +25,7 @@
             <a class="button is-info" href="{{ route('products.register') }}">S'inscrire</a>
         @else
 
-            <a class="button is-info" href="{{ route('signout') }}">LogOutr</a>
+            <a class="button is-info" href="{{ route('signout') }}">Se déconnecter</a>
 
         @endguest
 

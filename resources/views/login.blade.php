@@ -5,8 +5,8 @@
     @csrf
 
     <div class="form-group mb-3">
-        <label for="username">Nom d'utilisateur</label>
-        <input type="text" class="form-control" id="email" placeholder="Nom d'utilisateur" name="email">
+        <label for="username">Email de connexion</label>
+        <input type="text" class="form-control" id="email" placeholder="Email" name="email">
     </div>
 
     <div class="form-group mb-3">

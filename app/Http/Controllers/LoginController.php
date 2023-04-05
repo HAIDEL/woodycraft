@@ -26,7 +26,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             return redirect()->intended('/')
-                ->withSuccess('Signed in');
+                ->withSuccess('Connexion effectuée');
         }
 
         return redirect("login")->withSuccess('Login details are not valid');
