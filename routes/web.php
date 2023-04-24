@@ -48,8 +48,10 @@ Route::controller(LoginController::class)->group(function () {
 });
 Route::controller(CartController::class)->group(function () {
 
-    Route::post('/cart/add', 'addToCart')->name('cart.add');
-    Route::get('/cart', 'displayCart')->name('cart.display');
+    Route::get('/cart', 'showCart')->name('cart.show');
+    Route::post('/ajoutCart/{id}','ajoutCart')->name('cart.add');
+
+
 });
 
     Route::get('/products/{id}', 'ProductController@show')->name('product.show');

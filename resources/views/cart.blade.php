@@ -1,41 +1,43 @@
 <h1>Shopping Cart</h1>
 <table>
-    <thead>
     <tr>
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Total</th>
-        <th></th>
+        <td>Nom Produit</td>
+        <td>Quantité</td>
+        <td>Prix</td>
+        <td>Action</td>
     </tr>
-    </thead>
-    <tbody>
-    @php $total = 0 @endphp
-    @foreach ($cart_items as $cart_item)
-        @php $subtotal = $cart_item['quantity'] * $cart_item['product']->price @endphp
+
+    <span hidden>{{$total = 0}}</span>
+    @foreach($carts as $cart)
         <tr>
-            <td>{{ $cart_item['product']->name }}</td>
-            <td>{{ $cart_item['quantity'] }}</td>
-            <td>{{ $cart_item['product']->price }}</td>
-            <td>{{ $subtotal }}</td>
+            <td>{{$cart->product->name}}</td>
             <td>
-                <form method="post" action="{{ route('cart.remove', $cart_item['product']->id) }}">
+                <form action="#" method="POST">
                     @csrf
-                    <button type="submit">Remove</button>
+                    <input type="hidden" name="id" value="{{ $cart->id }}">
+                    <input type="number" name="quantity" value="{{ $cart->quantity }}"/>
+                    <input type="submit" value="Mettre à jour">
+                </form>
+            </td>
+            <td>{{$totalProd = $cart->product->price * $cart->quantity}}€</td>
+            <td>
+                <form action="#" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" value="Supprimer">
                 </form>
             </td>
         </tr>
-        @php $total += $subtotal @endphp
-        @endforeach
-    <tr>
-        <td colspan="3">Total:</td>
-        <td>{{ $total }}</td>
-        <td>
-            <form method="post" action="{{ route('cart.clear') }}">
-                @csrf
-                <button type="submit">Clear Cart</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
+        <span hidden>{{ $total = $total+$totalProd }}</span>
+    @endforeach
 </table>
+<p>Total : {{$total}}€</p>
+<form action="#" method="POST">
+    @csrf
+    @method('DELETE')
+    <input type="submit" value="Supprimer le Panier">
+</form>
+<input type="hidden" name="total" value="{{ $total }}">
+<!-- Fin Données -->
+
+<a href="#">Commander</a>

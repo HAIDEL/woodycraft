@@ -26,6 +26,7 @@
         @else
 
             <a class="button is-info" href="{{ route('signout') }}">Se déconnecter</a>
+            <a class="button is-info" href="{{ route('cart.show') }}">Panier</a>
 
         @endguest
 
@@ -68,6 +69,12 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                    <form action="{{route('cart.add', $products->id)}}" method="POST">
+                        @csrf
+
+                        <input type="number" value="1" min="1" name="quantity">
+                        <input type="submit" value="Ajouter au Panier">
                     </form>
 
                 </td>
