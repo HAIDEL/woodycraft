@@ -11,22 +11,22 @@
     </thead>
     <tbody>
     @php $total = 0 @endphp
-    @foreach ($cart_items as $product_id => $product)
-        @php $subtotal = $product['quantity'] * $product['price'] @endphp
+    @foreach ($cart_items as $cart_item)
+        @php $subtotal = $cart_item['quantity'] * $cart_item['product']->price @endphp
         <tr>
-            <td>{{ $product['name'] }}</td>
-            <td>{{ $product['quantity'] }}</td>
-            <td>{{ $product['price'] }}</td>
+            <td>{{ $cart_item['product']->name }}</td>
+            <td>{{ $cart_item['quantity'] }}</td>
+            <td>{{ $cart_item['product']->price }}</td>
             <td>{{ $subtotal }}</td>
             <td>
-                <form method="post" action="{{ route('cart.remove', $product_id) }}">
+                <form method="post" action="{{ route('cart.remove', $cart_item['product']->id) }}">
                     @csrf
                     <button type="submit">Remove</button>
                 </form>
             </td>
         </tr>
         @php $total += $subtotal @endphp
-    @endforeach
+        @endforeach
     <tr>
         <td colspan="3">Total:</td>
         <td>{{ $total }}</td>

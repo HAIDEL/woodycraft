@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Product;
+use App\Models\Cart;
 
 class CartController extends Controller
 {
@@ -13,20 +14,26 @@ class CartController extends Controller
         $product = array(
             'id' => $request->input('id'),
             'name' => $request->input('name'),
-            'price' => $request->input('price')
+            'price' => $request->input('price'),
+            'quantity' => $request->input('quantity')
         );
 
+        $total_price = $product['price'] * $product['quantity'];
+
         if (Session::has('cart.' . $product['id'])) {
-            Session::increment('cart.' . $product['id'] . '.quantity');
+            Session::increment('cart.' . $product['id'] . '.quantity', $product['quantity']);
+            Session::increment('cart.' . $product['id'] . '.total_price', $total_price);
         } else {
             Session::put('cart.' . $product['id'], array(
-                'quantity' => 1,
+                'quantity' => $product['quantity'],
                 'price' => $product['price'],
-                'name' => $product['name']
+                'name' => $product['name'],
+                'total_price' => $total_price
             ));
         }
-        var_dump (session('cart'));
-        exit ;
+
+
+
         //return redirect()->back()->with('success', 'Product added to cart');
         return redirect('cart');
     }
@@ -53,16 +60,21 @@ class CartController extends Controller
 
         $cart_items = [];
 
-        // Construit un tableau d'articles de panier avec les informations des produits
+        // Constres deuit un tableau d'articl panier avec les informations des produits
+
         foreach ($products as $product) {
             $cart_items[] = [
-                'product' => $product,
-                'quantity' => $cart[$product->id]
+                'product_id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'quantity' => $cart[$product->id],
+                'subtotal' => $cart[$product->id] * $product->price
             ];
         }
 
         return $cart_items;
     }
+
     public function displayCart()
     {
         // Vérifie si la session du panier existe
