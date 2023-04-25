@@ -1,3 +1,4 @@
+
 <div class="card">
     <header class="card-header">
 
@@ -51,9 +52,7 @@
             <th>Action</th>
 
         </tr>
-        <div class="col-lg-1">
-            <a class="btn btn-success" href="{{ url('create') }}">Ajouter</a>
-        </div>
+
         @foreach ($products as $index => $products)
 
             <tr>

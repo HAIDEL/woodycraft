@@ -1,3 +1,5 @@
+<a class="button is-info" href="{{ route('products.index') }}">Accueil</a>
+
 <h1>Ajouter un Jouet</h1>
 
 

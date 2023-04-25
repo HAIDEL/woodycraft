@@ -1,4 +1,7 @@
-<h1>Modifier joueurs</h1>
+<a class="button is-info" href="{{ route('products.index') }}">Accueil</a>
+
+
+h1>Modifier joueurs</h1>
 
     <form method="post" action="{{ route('products.update', $product->id) }}">
         @method('PATCH')
