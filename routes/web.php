@@ -5,6 +5,7 @@ use App\Http\Controllers\WoodyController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,7 +57,7 @@ Route::controller(CartController::class)->group(function () {
 
 });
 
-
+Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 
 
