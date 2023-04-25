@@ -94,4 +94,5 @@ class WoodyController extends BaseController
         $categories = $product->categories;
         return view('show', compact('product','categories'));
     }
+
 }

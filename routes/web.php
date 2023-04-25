@@ -50,9 +50,13 @@ Route::controller(CartController::class)->group(function () {
 
     Route::get('/cart', 'showCart')->name('cart.show');
     Route::post('/ajoutCart/{id}','ajoutCart')->name('cart.add');
-
+    Route::delete('/cart/{id}', 'destroyCart')->name('cart.delete');
+    Route::delete('/cart', 'clearCart')->name('cart.clear');
+    Route::post('/cart/updatecart/{id}', 'updateCart')->name('cart.update');
 
 });
 
-    Route::get('/products/{id}', 'ProductController@show')->name('product.show');
-    Route::get('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
+
+
+
+

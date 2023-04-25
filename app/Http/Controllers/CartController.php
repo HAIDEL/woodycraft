@@ -10,7 +10,7 @@ use App\Models\Cart;
 
 class CartController extends Controller
 {
-    public function ajoutCart(Request $request, $id="")
+    public function ajoutCart(Request $request, $id='')
     {
         if(Auth::id())
         {
@@ -66,5 +66,36 @@ class CartController extends Controller
         }
     }
 
+    public function destroyCart($id)
+    {
 
+        $carts = Cart::query()->findOrFail($id);
+        $carts->delete();
+
+        return back()->with('success', 'Produit du panier supprimé avec succès');
+
+    }
+
+    public function clearCart()
+    {
+        $user = auth()->user();
+        $carts = Cart::where('name', $user->name);
+        $carts->delete();
+
+        return back()->with('success', 'Panier supprimé avec succès');
+
+    }
+    public function updateCart(Request $request, $id="")
+    {
+        $request->validate([
+
+            'quantity' => 'required',
+
+        ]);
+        $carts = Cart::query()->findOrFail($id);
+        $carts->quantity = $request->get('quantity');
+        $carts->update();
+
+        return back()->with('success', 'Produits modifié avec succès');
+    }
 }

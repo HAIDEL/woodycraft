@@ -22,7 +22,7 @@
 
 </table>
 
-<form method="POST" action="{{ route('cart.add') }}">
+<form method="POST" action="{{ route('cart.add', $product->id) }}">
     @csrf
     <input type="hidden" name="product_id" value="{{ $product->id }}">
     <label for="quantity">Quantité :</label>

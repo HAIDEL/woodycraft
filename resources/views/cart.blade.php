@@ -12,7 +12,7 @@
         <tr>
             <td>{{$cart->product->name}}</td>
             <td>
-                <form action="#" method="POST">
+                <form action="{{ route('cart.update',$cart->id) }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" value="{{ $cart->id }}">
                     <input type="number" name="quantity" value="{{ $cart->quantity }}"/>
@@ -21,10 +21,10 @@
             </td>
             <td>{{$totalProd = $cart->product->price * $cart->quantity}}€</td>
             <td>
-                <form action="#" method="post">
+                <form action="{{ route('cart.delete', $cart->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" value="Supprimer">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
                 </form>
             </td>
         </tr>
@@ -32,7 +32,7 @@
     @endforeach
 </table>
 <p>Total : {{$total}}€</p>
-<form action="#" method="POST">
+<form action="{{ route('cart.clear')}}" method="POST">
     @csrf
     @method('DELETE')
     <input type="submit" value="Supprimer le Panier">

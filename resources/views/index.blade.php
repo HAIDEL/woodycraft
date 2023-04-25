@@ -72,7 +72,6 @@
                     </form>
                     <form action="{{route('cart.add', $products->id)}}" method="POST">
                         @csrf
-
                         <input type="number" value="1" min="1" name="quantity">
                         <input type="submit" value="Ajouter au Panier">
                     </form>
