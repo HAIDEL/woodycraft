@@ -25,7 +25,7 @@ Route::resource('products', WoodyController::class);
 Route::controller(WoodyController::class)->group(function () {
 
     Route::get('/', 'index')->name('products.index');
-    Route::get('/create', 'create')->name('products.create');
+    Route::get('/create', 'create')->name('products.create')->middleware('is_admin');;
     Route::get('category/{name}/products', 'index')->name('products.category');
     Route::post('/product', 'store')->name('products.store');
     Route::delete('/product/{id}', 'destroy')->name('products.destroy');
@@ -59,5 +59,7 @@ Route::controller(CartController::class)->group(function () {
 
 Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
-
+Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::get('admin', 'HomeController@admin')->name('admin');
+});
 

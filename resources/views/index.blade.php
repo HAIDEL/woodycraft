@@ -1,4 +1,10 @@
 
+@if(session()->has('info'))
+    <div>
+        {{ session('info') }}
+    </div>
+@endif
+
 <div class="card">
     <header class="card-header">
 

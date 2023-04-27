@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'name'=>$request->get('name'),
             'password'=>$hashMdp,
         ]);
+        $users->is_admin=0;
         $users->save();
 
         return redirect('/')->with('info', 'Inscrit avec succès');
