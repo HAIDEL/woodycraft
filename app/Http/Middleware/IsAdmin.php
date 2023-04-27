@@ -16,7 +16,7 @@ class IsAdmin
                 return $next($request);
             }
 
-            return redirect('/')->with('info', "NTM TU VA OU");
+            return redirect('/')->with('info', "Tu n'as pas l'accès");
         }
     }
 }

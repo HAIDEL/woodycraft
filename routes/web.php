@@ -25,11 +25,11 @@ Route::resource('products', WoodyController::class);
 Route::controller(WoodyController::class)->group(function () {
 
     Route::get('/', 'index')->name('products.index');
-    Route::get('/create', 'create')->name('products.create')->middleware('is_admin');;
+    Route::get('/create', 'create')->name('products.create')->middleware('is_admin');
     Route::get('category/{name}/products', 'index')->name('products.category');
     Route::post('/product', 'store')->name('products.store');
-    Route::delete('/product/{id}', 'destroy')->name('products.destroy');
-    Route::get('/product/{id}/edit', 'edit')->name('products.edit');
+    Route::delete('/product/{id}', 'destroy')->name('products.destroy')->middleware('is_admin');
+    Route::get('/product/{id}/edit', 'edit')->name('products.edit')->middleware('is_admin');
     Route::patch('/product/{id}', 'update')->name('products.update');
     Route::get('/product/{id}', 'show')->name('show');
 

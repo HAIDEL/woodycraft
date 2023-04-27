@@ -1,4 +1,3 @@
-
 @if(session()->has('info'))
     <div>
         {{ session('info') }}
