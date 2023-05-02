@@ -1,4 +1,4 @@
-<a class="button is-info" href="{{ route('products.index') }}">Accueil</a>
+<a class="button is-info" href="{{ route('adminHome') }}">Accueil</a>
 
 
 <h1>Modifier joueurs</h1>

@@ -15,17 +15,19 @@ class WoodyController extends BaseController
 {
     public function index($name = null)
     {
-        $query = $name ? Category::whereName($name)->firstOrFail()->products():Product::query();
+        $query = $name ? Category::whereName($name)->firstOrFail()->products() : Product::query();
         $products = $query->oldest('name')->paginate(5);
         $categories = Category::all();
-        return view('index', compact('products','name','categories'));
+        return view('index', compact('products', 'name', 'categories'));
     }
+
     public function create()
     {
-        $categories=Category::all();
-        return view('create', compact('categories') );
+        $categories = Category::all();
+        return view('create', compact('categories'));
 
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -37,7 +39,7 @@ class WoodyController extends BaseController
         ]);
 
 
-        $products= new product([
+        $products = new product([
             'category_id' => $request->get('category_id'),
             'name' => $request->get('name'),
             'description' => $request->get('description'),
@@ -49,6 +51,7 @@ class WoodyController extends BaseController
         $products->save();
         return redirect('/');
     }
+
     public function destroy($id)
     {
 
@@ -63,8 +66,9 @@ class WoodyController extends BaseController
     {
         $product = Product::query()->findOrFail($id);
         $categories = Category::all();
-        return view('edit', compact('product','categories'));
+        return view('edit', compact('product', 'categories'));
     }
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -73,7 +77,7 @@ class WoodyController extends BaseController
             'description' => 'required',
             'price' => 'required',
             'quantity' => 'required',
-            'category_id'=>'required'
+            'category_id' => 'required'
 
         ]);
         $products = Product::query()->findOrFail($id);
@@ -84,15 +88,56 @@ class WoodyController extends BaseController
         $products->category_id = $request->get('category_id');
 
 
-
         $products->update();
 
         return redirect('/')->with('success', 'Produits modifié avec succès');
     }
+
     public function show(Product $product)
     {
         $categories = $product->categories;
-        return view('show', compact('product','categories'));
+        return view('show', compact('product', 'categories'));
     }
 
+    public function createcate()
+    {
+        $categories = Category::all();
+        return view('createcate', compact('categories'));
+
+    }
+
+    public function storecate(Request $request)
+    {
+        $request->validate([
+            'name'
+        ]);
+        $categories = new category([
+
+            'name' => $request->get('name')
+        ]);
+        $categories->save();
+        return redirect('/');
+    }
+
+    public function updatecate(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $categories = Category::query()->findOrFail($id);
+        $categories->name = $request->get('name');
+
+        $categories->updatecate();
+
+        return redirect('/')->with('success', 'Produits modifié avec succès');
+    }
+    public function destroycate($id)
+    {
+
+        $categories = Category::query()->findOrFail($id);
+        $categories->delete();
+
+        return back()->with('success', 'Catégorie supprimé avec succès');
+
+    }
 }

@@ -17,6 +17,7 @@
             </select>
         </div>
         <a class="button is-info" href="{{ route('products.create') }}">Créer un jouet</a>
+        <a class="button is-info" href="{{ route('category.create') }}">Créer une catégorie</a>
     </header>
 
     <div class="row">
@@ -32,7 +33,7 @@
         @else
 
             <a class="button is-info" href="{{ route('signout') }}">Se déconnecter</a>
-          
+
 
         @endguest
 

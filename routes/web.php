@@ -33,6 +33,11 @@ Route::controller(WoodyController::class)->group(function () {
     Route::patch('/product/{id}', 'update')->name('products.update');
     Route::get('/product/{id}', 'show')->name('show');
 
+    //Options catégories
+    Route::get('/create/cate', 'createcate')->name('category.create')->middleware('is_admin');
+    Route::post('/store/cate', 'storecate')->name('category.store')->middleware('is_admin');
+    Route::get('/update/cate', 'updatecate')->name('category.update')->middleware('is_admin');
+    Route::delete('/create/cate/{id_categories}', 'destroycate')->name('category.destroy')->middleware('is_admin');
 
 });
 Route::controller(RegisterController::class)->group(function () {
