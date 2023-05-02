@@ -16,22 +16,30 @@ class LoginController extends Controller
         return view('login');
     }
 
-
     public function customLogin(Request $request)
     {
         $request->validate([
             'email' => 'required',
-            'password' => 'required',
+            'password' => 'required'
+
         ]);
 
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/')
-                ->withSuccess('Connexion effectuée');
-        }
+        $credentials=$request->only('email', 'password');
+        if (Auth::attempt($credentials)){
+            if (auth()->user()->is_admin ==1){
+                return redirect()->route('adminHome');
 
-        return redirect("login")->withSuccess('Login details are not valid');
-    }
+            }
+            else{
+                return redirect()->intended()->with('info','Connecté avec succés');
+            }
+        }
+        return redirect("login")->with('info','Caa va ca va');
+}
+
+
+
+
 
     public function signOut() {
         Session::flush();

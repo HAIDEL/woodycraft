@@ -1,8 +1,3 @@
-@if(session()->has('info'))
-    <div>
-        {{ session('info') }}
-    </div>
-@endif
 
 <div class="card">
     <header class="card-header">
@@ -16,7 +11,7 @@
                 @endforeach
             </select>
         </div>
-        <a class="button is-info" href="{{ route('products.create') }}">Créer un jouet</a>
+
     </header>
 
     <div class="row">
@@ -68,11 +63,7 @@
                 <td>{{ $products->quantity }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('products.show', $products->id) }}">Voir</a>
-                    <a class="btn btn-primary" href="{{ route('products.edit', $products->id) }}">Modifier</a>
-                    <form action="{{ route('products.destroy', $products->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Supprimer</button>
+
                     </form>
                     <form action="{{route('cart.add', $products->id)}}" method="POST">
                         @csrf

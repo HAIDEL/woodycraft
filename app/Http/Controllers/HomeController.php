@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('/');
     }
 
     /**
@@ -31,9 +33,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function adminHome()
+    public function adminHome($name= null)
     {
-        return view('adminHome');
+        $query = $name ? Category::whereName($name)->firstOrFail()->products():Product::query();
+        $products = $query->oldest('name')->paginate(5);
+        $categories = Category::all();
+        return view('adminHome',compact('name','products','categories'));
     }
 
 }

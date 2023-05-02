@@ -17,8 +17,8 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-    Route::get('/', function () {
-        return view('index');
+    Route::get('home', function () {
+        return view('home');
 
 });
 Route::resource('products', WoodyController::class);
@@ -46,6 +46,8 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'formLogin')->name('products.login');
     Route::post('/login/store', 'CustomLogin')->name('Custom.login');
     Route::get('signout','signOut')->name('signout');
+    Route::get('/login/admin', 'adminLogin')->name('adminHome');
+
 });
 Route::controller(CartController::class)->group(function () {
 
@@ -57,7 +59,11 @@ Route::controller(CartController::class)->group(function () {
 
 });
 
-Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+Route::controller(HomeController::class)->group(function(){
+
+    Route::get('/admin/home', 'adminHome')->name('adminHome');
+
+});
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('admin', 'HomeController@admin')->name('admin');
