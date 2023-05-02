@@ -18,6 +18,7 @@
         </div>
         <a class="button is-info" href="{{ route('products.create') }}">Créer un jouet</a>
         <a class="button is-info" href="{{ route('category.create') }}">Créer une catégorie</a>
+        <a class="button is-info" href="{{ route('category.view') }}">Voir les catégories</a>
     </header>
 
     <div class="row">

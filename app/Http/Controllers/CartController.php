@@ -98,4 +98,7 @@ class CartController extends Controller
 
         return back()->with('success', 'Produits modifié avec succès');
     }
+    public function CommandeCart(){
+
+    }
 }

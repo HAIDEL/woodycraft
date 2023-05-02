@@ -127,7 +127,7 @@ class WoodyController extends BaseController
         $categories = Category::query()->findOrFail($id);
         $categories->name = $request->get('name');
 
-        $categories->updatecate();
+        $categories->update();
 
         return redirect('/')->with('success', 'Produits modifié avec succès');
     }
@@ -139,5 +139,17 @@ class WoodyController extends BaseController
 
         return back()->with('success', 'Catégorie supprimé avec succès');
 
+    }
+    public function showcate()
+    {
+
+        $categories = Category::all();
+        return view('viewcate', compact( 'categories'));
+    }
+    public function editcate($id)
+    {
+        $categories = Category::query()->findOrFail($id);
+
+        return view('editcate', compact('categories'));
     }
 }
