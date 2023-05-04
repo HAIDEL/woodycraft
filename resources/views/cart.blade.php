@@ -14,7 +14,7 @@
             <td>{{$cart->product->name}}</td>
             <td>
                 <form action="{{ route('cart.update',$cart->id) }}" method="POST">
-
+                    @csrf
                     <input type="hidden" name="id" value="{{ $cart->id }}">
                     <input type="number" name="quantity" value="{{ $cart->quantity }}"/>
                     <input type="submit" value="Mettre à jour">

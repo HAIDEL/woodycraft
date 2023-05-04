@@ -70,7 +70,7 @@ Route::controller(CartController::class)->group(function () {
     Route::post('/ajoutCart/{id}','ajoutCart')->name('cart.add');
     Route::delete('/cart/{id}', 'destroyCart')->name('cart.delete');
     Route::delete('/cart', 'clearCart')->name('cart.clear');
-    Route::post('/cart/updatecart/{id}', 'updateCart')->name('cart.update');
+    Route::post('/cart/{id}', 'updateCart')->name('cart.update');
 
 });
 
