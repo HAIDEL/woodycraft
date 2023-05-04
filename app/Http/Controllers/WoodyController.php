@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Delivery_addresses;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -131,6 +132,7 @@ class WoodyController extends BaseController
 
         return redirect('/')->with('success', 'Produits modifié avec succès');
     }
+
     public function destroycate($id)
     {
 
@@ -140,16 +142,59 @@ class WoodyController extends BaseController
         return back()->with('success', 'Catégorie supprimé avec succès');
 
     }
+
     public function showcate()
     {
 
         $categories = Category::all();
-        return view('viewcate', compact( 'categories'));
+        return view('viewcate', compact('categories'));
     }
+
     public function editcate($id)
     {
         $categories = Category::query()->findOrFail($id);
 
         return view('editcate', compact('categories'));
+    }
+
+    public function order()
+    {
+        return view('commande');
+
+    }
+    public function inforder()
+    {
+        $delivery_addresses=Delivery_addresses::all();
+        return view('recaporder', compact('delivery_addresses'));
+
+    }
+    public function storder(Request $request)
+    {
+        $request->validate([
+            'firstname',
+            'lastname',
+            'add1',
+            'add2',
+            'city',
+            'postcode',
+            'phone',
+            'email'
+        ]);
+
+
+        $delivery = new Delivery_addresses([
+            'firstname' => $request->get('firstname'),
+            'lastname' => $request->get('lastname'),
+            'add1' => $request->get('add1'),
+            'add2' => $request->get('add2'),
+            'city' => $request->get('city'),
+            'postcode' => $request->get('postcode'),
+            'phone' => $request->get('phone'),
+            'email' => $request->get('email')
+        ]);
+
+
+        $delivery->save();
+        return redirect('/');
     }
 }

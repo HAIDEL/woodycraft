@@ -41,4 +41,4 @@
 <input type="hidden" name="total" value="{{ $total }}">
 <!-- Fin Données -->
 
-<a href="#">Commander</a>
+<a class="button is-info" href="{{ route('create.order') }}">Commander</a>
