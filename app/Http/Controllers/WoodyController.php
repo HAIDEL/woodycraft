@@ -171,14 +171,14 @@ class WoodyController extends BaseController
     public function storder(Request $request)
     {
         $request->validate([
-            'firstname',
-            'lastname',
-            'add1',
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'add1'=>'required',
             'add2',
-            'city',
-            'postcode',
-            'phone',
-            'email'
+            'city'=>'required',
+            'postcode'=>'required',
+            'phone'=>'required',
+            'email'=>'required'
         ]);
 
 
@@ -195,6 +195,6 @@ class WoodyController extends BaseController
 
 
         $delivery->save();
-        return redirect('/');
+        return redirect('/recap/order');
     }
 }

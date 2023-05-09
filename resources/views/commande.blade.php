@@ -1,46 +1,49 @@
 
 <a class="button is-info" href="{{ route('products.index') }}">Page d'accueil</a>
-
-<form method="POST" action="{{ route('create.order') }}">
-
+@if($errors->all())
+    @foreach($errors->all() as $error)
+        <p>{{$error}}</p>
+    @endforeach
+@endif
+<form method="POST" action="{{ route('store.order') }}">
+    @csrf
     <div class="form-group mb-3">
-        <label for="firstname">Entrez un Prénom</label>
-        <input type="text" class="form-control" id="firstname" placeholder="Entrez un Prénom" name="firstname">
+        <label for="firstname">Prénom</label>
+        <input type="text" class="form-control"  placeholder="Entrez un Prénom" name="firstname">
     </div>
 
     <div class="form-group mb-3">
         <label for="lastname">Nom</label>
-        <input type="text" class="form-control" id="lastname" placeholder="Nom" name="lastname">
-    </div>
-    <div class="form-group mb-3">
-        <label for="name">Pseudo</label>
-        <input type="text" class="form-control" id="name" placeholder="Pseudo" name="name">
+        <input type="text" class="form-control"  placeholder="Nom" name="lastname">
     </div>
 
 
     <div class="form-group mb-3">
         <label for="add1">Adresse numéro 1 (obligatoire)</label>
-        <input type="text" class="form-control" id="add1" placeholder="Adresse numéro 1" name="add1">
+        <input type="text" class="form-control"  placeholder="Adresse numéro 1" name="add1">
     </div>
     <div class="form-group mb-3">
         <label for="add2">Adresse numéro 2 (facultatif)</label>
-        <input type="text" class="form-control" id="add2" placeholder="Adresse numéro 2" name="add2">
+        <input type="text" class="form-control"  placeholder="Adresse numéro 2" name="add2">
     </div>
 
-
+    <div class="form-group mb-3">
+        <label for="city">Ville </label>
+        <input type="text" class="form-control"  placeholder="Ville" name="city">
+    </div>
     <div class="form-group mb-3">
         <label for="phone">Numéro de téléphone </label>
-        <input type="text" size="10" class="form-control" id="phone" placeholder="Numéro de téléphone" name="phone">
+        <input type="text" size="10" class="form-control"  placeholder="Numéro de téléphone" name="phone">
     </div>
 
     <div class="form-group mb-3">
         <label for="postcode">Code postal </label>
-        <input type="text" class="form-control" id="postcode" placeholder="Code postal" name="postcode">
+        <input type="text" class="form-control"  placeholder="Code postal" name="postcode">
     </div>
 
     <div class="form-group mb-3">
         <label for="email">Mail </label>
-        <input type="email" class="form-control" id="email" placeholder="Mail" name="email">
+        <input type="email" class="form-control"  placeholder="Mail" name="email">
     </div>
     <div class="form-group mb-3">
         <label for="paiement"> Moyen de paiement </label>
@@ -51,5 +54,6 @@
         </select>
     </div>
 
-    <a class="button is-info" href="{{ route('recap.order') }}">Renseigner ces informations</a>
+    <input type="submit" value="Commander">
 </form>
+

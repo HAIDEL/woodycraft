@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table = 'orders';
-    protected $fillable = ['customer_id','forname','add1','phone','postcode','email'];
+
+
     use HasFactory;
+
+    public function delivery_addresses()
+    {
+        return $this->belongsTo(Delivery_addresses::class);
+    }
 }

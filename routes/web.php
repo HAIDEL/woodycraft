@@ -42,7 +42,7 @@ Route::controller(WoodyController::class)->group(function () {
     Route::get('/show/cate', 'showcate')->name('category.view')->middleware('is_admin');
     Route::get('/edit/{id}/cate', 'editcate')->name('categories.edit')->middleware('is_admin');
 
-    //Routes Commande
+    //Routes Commandes
 
     Route::get('/commande/create', 'order')->name('create.order');
     Route::get('/recap/order', 'inforder')->name('recap.order');
