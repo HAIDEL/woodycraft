@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Delivery_addresses;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-
+use App\Models\User;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Product;
 use App\Models\Category;
@@ -162,14 +165,28 @@ class WoodyController extends BaseController
         return view('commande');
 
     }
-    public function inforder()
-    {
-        $delivery_addresses=Delivery_addresses::all();
-        return view('recaporder', compact('delivery_addresses'));
+
+    public function listOrder(){
+        if(Auth::id())
+        {
+            $user=auth()->user();
+            $count = Cart::where('name', $user->name)->count();
+            $orders = Order::where('customer_id', $user->customers_id)->oldest('status')->first();
+            $deliverys = Delivery_addresses::where('id',$orders->delivery_id)->get();
+
+
+            return view('recaporder', compact('orders','count','user','deliverys'));
+
+        }
+        else{
+            return redirect('login');
+        }
 
     }
     public function storder(Request $request)
     {
+        $user=auth()->user();
+
         $request->validate([
             'firstname'=>'required',
             'lastname'=>'required',
@@ -178,7 +195,8 @@ class WoodyController extends BaseController
             'city'=>'required',
             'postcode'=>'required',
             'phone'=>'required',
-            'email'=>'required'
+            'email'=>'required',
+
         ]);
 
 
@@ -194,7 +212,20 @@ class WoodyController extends BaseController
         ]);
 
 
+
         $delivery->save();
+
+        $idDelivery = Delivery_addresses::latest()->first()->id;
+
+        $order=new Order;
+        $order->customer_id=$user->customers_id;
+        $order->delivery_add_id=$idDelivery;
+        $order->status=0;
+
+        $order->save();
+
+
+
         return redirect('/recap/order');
     }
 }

@@ -45,7 +45,7 @@ Route::controller(WoodyController::class)->group(function () {
     //Routes Commandes
 
     Route::get('/commande/create', 'order')->name('create.order');
-    Route::get('/recap/order', 'inforder')->name('recap.order');
+    Route::get('/recap/order', 'listOrder')->name('recap.order');
     Route::post('/recap', 'storder')->name('store.order');
 
 

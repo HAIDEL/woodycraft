@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 
-
     use HasFactory;
-
+    protected  $fillable = ['delivery_id'];
     public function delivery_addresses()
     {
         return $this->belongsTo(Delivery_addresses::class);
