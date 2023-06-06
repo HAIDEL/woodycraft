@@ -13,6 +13,7 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Commande;
 
 
 class WoodyController extends BaseController
@@ -219,11 +220,30 @@ class WoodyController extends BaseController
 
         $order=new Order;
         $order->customer_id=$user->customers_id;
-        $order->delivery_add_id=$idDelivery;
+        $order->delivery_id=$idDelivery;
         $order->status=0;
 
         $order->save();
 
+        $idOrder = Order::latest()->first()->id;
+
+        $paniers = Cart::where('name', $user->name)->get();
+        $products= Product::all();
+
+        foreach ($paniers as $panier)
+        {
+
+            $commande = new commande;
+            $commande->name=$panier->name;
+            $commande->product_id=$panier->product_id;
+            $commande->quantity=$panier->quantity;
+            $commande->order_id = $idOrder;
+            $commande->product->quantity=$commande->product->quantity-$commande->quantity;
+            $commande->save();
+
+        }
+        $paniers = Cart::where('name', $user->name);
+        $paniers->delete();
 
 
         return redirect('/recap/order');

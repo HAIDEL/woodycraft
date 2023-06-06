@@ -1,20 +1,35 @@
 
+
+<span hidden> {{$total=0}}</span>
+
+
+@foreach($orders->commandes as $commande)
+
+        {{$commande->quantity}} | {{$commande->product->name}} {{$commande->product->price}}€<br>
+        <span hidden>
+            {{$totalProd = $commande->product->price * $commande->quantity}}
+            {{ $total = $total+$totalProd }}
+        </span>
+@endforeach
+
+
+
+
 @foreach($deliverys as $delivery)
 
 
 <tr>
 
-    <td>{{ $delivery->firstname}}</td>
-    <td>{{ $delivery->lastname}}</td>
-    <td>{{ $delivery->add1}}</td>
-    <td>{{ $delivery->add2}}</td>
-    <td>{{ $delivery->city}}</td>
-    <td>{{ $delivery->postcode}}</td>
-    <td>{{ $delivery->phone}}</td>
-    <td>{{ $delivery->email}}</td>
+  Nom : <td>{{ $delivery->firstname}}</td><br>
+  Prénom : <td>{{ $delivery->lastname}}</td><br>
+    Adresse :<td>{{ $delivery->add1}}</td><br>
+    Ville :<td>{{ $delivery->city}}</td><br>
+    Code postale :<td>{{ $delivery->postcode}}</td><br>
+    Numéro de Téléphone : <td>{{ $delivery->phone}}</td><br>
+    Email : <td>{{ $delivery->email}}</td><br>
 
 </tr>
-
-
+<br>
+Prix total : {{$total}}
 
 @endforeach
