@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfilController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +63,14 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/login/store', 'CustomLogin')->name('Custom.login');
     Route::get('signout','signOut')->name('signout');
     Route::get('/login/admin', 'adminLogin')->name('adminHome');
+
+});
+Route::controller(ProfilController::class)->group(function () {
+
+    Route::get('/user/profil', 'showProfil')->name('profil.user');
+    Route::get('/user/profil/edit', 'editProfil')->name('profil.edit');
+    Route::post('/user/profil/{id}','updateProfil')->name('profil.update');
+
 
 });
 Route::controller(CartController::class)->group(function () {

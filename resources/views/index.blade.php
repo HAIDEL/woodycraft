@@ -28,6 +28,8 @@
 
             <a class="button is-info" href="{{ route('signout') }}">Se déconnecter</a>
             <a class="button is-info" href="{{ route('cart.show') }}">Panier</a>
+            <a class="button is-info" href="{{ route('profil.user') }}">Profil</a>
+
 
         @endguest
 

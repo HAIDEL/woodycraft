@@ -23,6 +23,10 @@ class WoodyController extends BaseController
         $query = $name ? Category::whereName($name)->firstOrFail()->products() : Product::query();
         $products = $query->oldest('name')->paginate(5);
         $categories = Category::all();
+        if (auth()->user()->is_admin == 1) {
+            $user = auth()->user();
+            return view('adminHome', compact('products','name','categories','user'));
+        }
         return view('index', compact('products', 'name', 'categories'));
     }
 
@@ -235,6 +239,14 @@ class WoodyController extends BaseController
         foreach ($paniers as $panier)
         {
 
+            foreach ($products as $product)
+            {
+                if($panier->product_id == $product->id)
+                {
+                    $product->quantity=$product->quantity-$panier->quantity;
+                    $product->update();
+                }
+            }
             $commande = new commande;
             $commande->name=$panier->name;
             $commande->product_id=$panier->product_id;

@@ -1,4 +1,5 @@
 <a class="button is-info" href="{{ route('products.index') }}">Accueil</a>
+
 <h1>Produits</h1>
 <table class="table table-bordered">
     <tr>
