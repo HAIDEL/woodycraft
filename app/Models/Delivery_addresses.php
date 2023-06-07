@@ -9,7 +9,7 @@ class Delivery_addresses extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['firstname','lastname','add1','add2','city','postcode','phone','email'];
+    protected $fillable = ['firstname','lastname','add1','add2','city','postcode','phone','email','paiement'];
 
     public function order()
     {

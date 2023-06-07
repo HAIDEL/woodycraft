@@ -1,4 +1,5 @@
 
+<a class="button is-info" href="{{ route('products.index') }}">Page d'accueil</a> <br><br><br>
 
 <span hidden> {{$total=0}}</span>
 
@@ -12,9 +13,6 @@
         </span>
 @endforeach
 
-
-
-
 @foreach($deliverys as $delivery)
 
 
@@ -27,6 +25,7 @@
     Code postale :<td>{{ $delivery->postcode}}</td><br>
     Numéro de Téléphone : <td>{{ $delivery->phone}}</td><br>
     Email : <td>{{ $delivery->email}}</td><br>
+    Mode de paiement :  <td>{{ $delivery->paiement}}</td>
 
 </tr>
 <br>

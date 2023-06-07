@@ -85,7 +85,7 @@ class CartController extends Controller
         return back()->with('success', 'Panier supprimé avec succès');
 
     }
-    public function updateCart(Request $request, $id)
+    public function updateCart(Request $request, $id="")
     {
         $request->validate([
 

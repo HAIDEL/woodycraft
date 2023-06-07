@@ -197,6 +197,7 @@ class WoodyController extends BaseController
             'postcode'=>'required',
             'phone'=>'required',
             'email'=>'required',
+            'paiement'=>'required'
 
         ]);
 
@@ -209,7 +210,8 @@ class WoodyController extends BaseController
             'city' => $request->get('city'),
             'postcode' => $request->get('postcode'),
             'phone' => $request->get('phone'),
-            'email' => $request->get('email')
+            'email' => $request->get('email'),
+            'paiement' => $request->get('paiement')
         ]);
 
 
