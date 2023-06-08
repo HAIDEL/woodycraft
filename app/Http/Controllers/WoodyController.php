@@ -23,12 +23,15 @@ class WoodyController extends BaseController
         $query = $name ? Category::whereName($name)->firstOrFail()->products() : Product::query();
         $products = $query->oldest('name')->paginate(5);
         $categories = Category::all();
-        if (auth()->user()->is_admin == 1) {
-            $user = auth()->user();
-            return view('adminHome', compact('products','name','categories','user'));
+        if(Auth::id()) {
+            if (auth()->user()->is_admin == 1) {
+                $user = auth()->user();
+                return view('adminHome', compact('products', 'name', 'categories', 'user'));
+            }
         }
         return view('index', compact('products', 'name', 'categories'));
     }
+
 
     public function create()
     {

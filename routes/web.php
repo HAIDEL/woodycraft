@@ -38,7 +38,7 @@ Route::controller(WoodyController::class)->group(function () {
 
     Route::get('/create/cate', 'createcate')->name('category.create')->middleware('is_admin');
     Route::post('/store/cate', 'storecate')->name('category.store')->middleware('is_admin');
-    Route::get('/update/{id}/cate', 'updatecate')->name('category.update')->middleware('is_admin');
+    Route::patch('/update/{id}/cate', 'updatecate')->name('category.update')->middleware('is_admin');
     Route::delete('/create/cate/{id}', 'destroycate')->name('category.destroy')->middleware('is_admin');
     Route::get('/show/cate', 'showcate')->name('category.view')->middleware('is_admin');
     Route::get('/edit/{id}/cate', 'editcate')->name('categories.edit')->middleware('is_admin');
