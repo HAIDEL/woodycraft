@@ -114,10 +114,12 @@
             <th>Prix Jouet</th>
             <th>Quantité Jouet</th>
             <th>Action</th>
+            <th>Image</th>
 
         </tr>
 
         @foreach ($products as $index => $products)
+            @if ($products && ($products->status == 0 || ($products->categories && $products->categories->status == 0)))
 
             <tr>
                 <td>{{ $products->category_id }}</td>
@@ -136,10 +138,13 @@
                     </form>
 
                 </td>
+                <td><img src="{{ URL::to($products->image) }}"/></td>
 
 
             </tr>
+            @endif
         @endforeach
+
     </table>
 
 

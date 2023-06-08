@@ -26,7 +26,10 @@
             margin-bottom: 30px;
             text-align: center;
         }
-
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+        }
         .form-group label {
             font-weight: 500;
         }
@@ -85,6 +88,9 @@
         <a class="btn btn-outline-dark" href="{{ route('products.create') }}">Créer un jouet</a>
         <a class="btn btn-outline-dark" href="{{ route('category.create') }}">Créer une catégorie</a>
         <a class="btn btn-outline-dark" href="{{ route('category.view') }}">Voir les catégories</a>
+        <a class="btn btn-outline-dark" href="{{ route('admin.archive') }}">Produits archivés</a>
+
+
         @guest
 
             <a class="button is-info" href="{{ route('products.login') }}">Se Connecter</a>
@@ -128,13 +134,14 @@
         </tr>
 
         @foreach ($products as $index => $products)
+            @if ($products && ($products->status == 0 || ($products->categories && $products->categories->status == 0)))
 
-            <tr>
-                <td>{{ $products->category_id }}</td>
+            <td>{{ $products->category_id }}</td>
                 <td>{{ $products->name }}</td>
                 <td>{{ $products->description }}</td>
                 <td>{{ $products->price }}</td>
                 <td>{{ $products->quantity }}</td>
+
                 <td>
                     <a class="btn btn-info" href="{{ route('products.show', $products->id) }}">Voir</a>
                     <a class="btn btn-primary" href="{{ route('products.edit', $products->id) }}">Modifier</a>
@@ -150,10 +157,15 @@
                     </form>
 
                 </td>
-                <td>{{ $products->image }}</td>
+
+            <td><img src="{{ URL::to($products->image) }}"/></td>
 
 
             </tr>
+            @endif
+
+
+
         @endforeach
     </table>
 

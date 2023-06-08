@@ -71,7 +71,7 @@
 
 
 
-<form action="{{ route('products.store') }}" method="POST">
+<form action="{{ route('products.store') }}" enctype="multipart/form-data" method="POST">
     @csrf
 <div class="field">
     <label class="label">Catégories</label>
@@ -104,6 +104,8 @@
     <input type="text" class="form-control" id="quantity" placeholder="Quantité" name="quantity">
 </div>
 
+    <label class="label">Image(Inferieur a 2mo, JPEG OU JPG):</label>
+    <input type="file" name="image" ><br>
 
 <button type="submit" class="btn btn-primary">Enregister</button>
 

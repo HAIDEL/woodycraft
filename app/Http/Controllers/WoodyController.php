@@ -23,7 +23,7 @@ class WoodyController extends BaseController
         $query = $name ? Category::whereName($name)->firstOrFail()->products() : Product::query();
         $products = $query->oldest('name')->paginate(5);
         $categories = Category::all();
-        if(Auth::id()) {
+        if (Auth::id()) {
             if (auth()->user()->is_admin == 1) {
                 $user = auth()->user();
                 return view('adminHome', compact('products', 'name', 'categories', 'user'));
@@ -46,11 +46,15 @@ class WoodyController extends BaseController
             'category_id',
             'name',
             'description',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price',
             'quantity'
         ]);
 
-
+        if ($request->has('image')) {
+            $imageName = time() . '.' . $request->image->extension(NULL);
+            $request->image->move(public_path('image'), $imageName);
+        }
         $products = new product([
             'category_id' => $request->get('category_id'),
             'name' => $request->get('name'),
@@ -59,7 +63,9 @@ class WoodyController extends BaseController
             'quantity' => $request->get('quantity')
         ]);
 
-
+        if ($request->has('image')) {
+            $products->image = ("/image/" . $imageName);
+        }
         $products->save();
         return redirect('/');
     }
@@ -68,10 +74,32 @@ class WoodyController extends BaseController
     {
 
         $products = Product::query()->findOrFail($id);
-        $products->delete();
+        $products->status = 1;
+        $products->update();
 
-        return back()->with('success', 'Produit supprimé avec succès');
+        return back()->with('info', 'produit archivé : ' . $products->name);
 
+    }
+    public function desarchive($id)
+
+    {
+
+        $products = Product::query()->findOrFail($id);
+        $products->status = 0;
+        $products->update();
+
+        return back()->with('info', 'produit déarchivé : ' . $products->name);
+
+    }
+    public function archive()
+    {
+        if (Auth::id()) {
+            $user = auth()->user();
+            $products = Product::all();
+            $categories = Category::all();
+            $ip = $_SERVER['SERVER_ADDR'];
+            return view('archive', compact('user', 'products', 'categories', 'ip'));
+        }
     }
 
     public function edit($id)
@@ -174,37 +202,37 @@ class WoodyController extends BaseController
 
     }
 
-    public function listOrder(){
-        if(Auth::id())
-        {
-            $user=auth()->user();
+    public function listOrder()
+    {
+        if (Auth::id()) {
+            $user = auth()->user();
             $count = Cart::where('name', $user->name)->count();
             $orders = Order::where('customer_id', $user->customers_id)->oldest('status')->first();
-            $deliverys = Delivery_addresses::where('id',$orders->delivery_id)->get();
+            $deliverys = Delivery_addresses::where('id', $orders->delivery_id)->get();
 
 
-            return view('recaporder', compact('orders','count','user','deliverys'));
+            return view('recaporder', compact('orders', 'count', 'user', 'deliverys'));
 
-        }
-        else{
+        } else {
             return redirect('login');
         }
 
     }
-    public function storder(Request $request, $id="")
+
+    public function storder(Request $request, $id = "")
     {
-        $user=auth()->user();
+        $user = auth()->user();
 
         $request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'add1'=>'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'add1' => 'required',
             'add2',
-            'city'=>'required',
-            'postcode'=>'required',
-            'phone'=>'required',
-            'email'=>'required',
-            'paiement'=>'required'
+            'city' => 'required',
+            'postcode' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'paiement' => 'required'
 
         ]);
 
@@ -222,40 +250,36 @@ class WoodyController extends BaseController
         ]);
 
 
-
         $delivery->save();
 
         $idDelivery = Delivery_addresses::latest()->first()->id;
 
-        $order=new Order;
-        $order->customer_id=$user->customers_id;
-        $order->delivery_id=$idDelivery;
-        $order->status=0;
+        $order = new Order;
+        $order->customer_id = $user->customers_id;
+        $order->delivery_id = $idDelivery;
+        $order->status = 0;
 
         $order->save();
 
         $idOrder = Order::latest()->first()->id;
 
         $paniers = Cart::where('name', $user->name)->get();
-        $products= Product::all();
+        $products = Product::all();
 
-        foreach ($paniers as $panier)
-        {
+        foreach ($paniers as $panier) {
 
-            foreach ($products as $product)
-            {
-                if($panier->product_id == $product->id)
-                {
-                    $product->quantity=$product->quantity-$panier->quantity;
+            foreach ($products as $product) {
+                if ($panier->product_id == $product->id) {
+                    $product->quantity = $product->quantity - $panier->quantity;
                     $product->update();
                 }
             }
             $commande = new commande;
-            $commande->name=$panier->name;
-            $commande->product_id=$panier->product_id;
-            $commande->quantity=$panier->quantity;
+            $commande->name = $panier->name;
+            $commande->product_id = $panier->product_id;
+            $commande->quantity = $panier->quantity;
             $commande->order_id = $idOrder;
-            $commande->product->quantity=$commande->product->quantity-$commande->quantity;
+            $commande->product->quantity = $commande->product->quantity - $commande->quantity;
             $commande->save();
 
         }
@@ -265,4 +289,8 @@ class WoodyController extends BaseController
 
         return redirect('/recap/order');
     }
+
+
+
+
 }

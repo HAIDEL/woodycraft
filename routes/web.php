@@ -34,6 +34,10 @@ Route::controller(WoodyController::class)->group(function () {
     Route::patch('/product/{id}', 'update')->name('products.update');
     Route::get('/product/{id}', 'show')->name('show');
 
+    //Options Admin test
+    Route::post('/product/{id}/actived', 'desarchive')->name('products.actived')->middleware('is_admin');
+    Route::get('/admin/product/archive', 'archive')->name('admin.archive')->middleware('is_admin');
+
     //Options categories
 
     Route::get('/create/cate', 'createcate')->name('category.create')->middleware('is_admin');
