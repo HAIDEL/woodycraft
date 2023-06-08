@@ -4,6 +4,7 @@
     <title>Récapitulatif commande</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>Profil</title>
         <style>
             body {
                 background-color: #f8f9fa;
