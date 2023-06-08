@@ -191,7 +191,7 @@ class WoodyController extends BaseController
         }
 
     }
-    public function storder(Request $request)
+    public function storder(Request $request, $id="")
     {
         $user=auth()->user();
 

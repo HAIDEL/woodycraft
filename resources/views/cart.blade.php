@@ -1,7 +1,39 @@
-<a class="button is-info" href="{{ route('products.index') }}">Accueil</a>
-<h1>Shopping Cart</h1>
 
-<table>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Panier</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .cart-table {
+            width: 100%;
+        }
+        .cart-total {
+            font-weight: bold;
+        }
+        .checkout-btn {
+            margin-top: 20px;
+        }
+        .home-link {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+
+
+
+<div class="container">
+    <a class="button is-info" href="{{ route('products.index') }}">Accueil</a>
+    <h1 class="mb-4">Mon Panier</h1>
+
+    <div class="table-responsive">
+        <table class="table cart-table">
     <tr>
         <td>Nom Produit</td>
         <td>Quantité</td>
@@ -42,4 +74,11 @@
 <input type="hidden" name="total" value="{{ $total }}">
 <!-- Fin Données -->
 
-<a class="button is-info" href="{{ route('create.order') }}">Commander</a>
+
+        <div class="text-right checkout-btn">
+<a class="btn btn-primary" href="{{ route('create.order') }}">Commander</a>
+        </div>
+
+    </div>
+</div>
+</html>
