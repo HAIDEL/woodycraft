@@ -29,7 +29,7 @@
 
 
 <div class="container">
-    <a class="button is-info" href="{{ route('products.index') }}">Accueil</a>
+    <a class="btn btn-outline-dark" href="{{ route('products.index') }}">Accueil</a>
     <h1 class="mb-4">Mon Panier</h1>
 
     <div class="table-responsive">

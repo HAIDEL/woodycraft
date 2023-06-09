@@ -105,7 +105,7 @@
 </div>
 
     <label class="label">Image(Inferieur a 2mo, JPEG OU JPG):</label>
-    <input type="file" name="image" ><br>
+    <input type="file" name="image" ><br><br>
 
 <button type="submit" class="btn btn-primary">Enregister</button>
 

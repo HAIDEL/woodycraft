@@ -129,6 +129,8 @@
                    value="{{ $product->quantity }}">
         </div>
 
+
+
         <button type="submit" class="btn btn-primary">Enregistrer</button>
     </form>
 

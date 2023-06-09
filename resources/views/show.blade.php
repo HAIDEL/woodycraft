@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Récapitulatif commande</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <title>Voir</title>
@@ -20,7 +20,10 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             position: relative;
         }
-
+        img {
+            width: 80px;
+            margin-right: 10px;
+        }
         .signup-box h2 {
             font-weight: 600;
             margin-bottom: 30px;
@@ -105,6 +108,11 @@
         <th>Quantité</th>
         <td>{{ $product->quantity }}</td>
     </tr>
+    <tr>
+        <th>Image</th>
+        <td><img src="{{ URL::to($product->image) }}"/></td>
+    </tr>
+
 
 </table>
 

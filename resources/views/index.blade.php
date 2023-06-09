@@ -9,7 +9,10 @@
         body {
             background-color: #f8f9fa;
         }
-
+        img {
+            width: 80px;
+            margin-right: 10px;
+        }
         .signup-box {
             max-width: 600px;
             margin: 0 auto;

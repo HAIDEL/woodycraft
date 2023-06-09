@@ -73,4 +73,5 @@ Prix total : {{$total}}
         </div>
     </div>
 </div>
+
 </html>
